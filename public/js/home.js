@@ -102,36 +102,39 @@ function onMatchesJson(json) {
 
 // SPOTIFY 
 
-function searchAlbum(event){
+function searchMusic(event){
     event.preventDefault();
-    const titolo = document.querySelector('#album');
-    //const song_value = encodeURIComponent(song_input.value);
-    fetch("spotify/song/"+encodeURIComponent(titolo)).then(onResponse).then(onSongJson);
+    const song_input = document.querySelector('#album');
+    console.log(song_input);
+    const song_value = encodeURIComponent(song_input.value);
+    console.log(song_value);
+    fetch("spotify/song/"+song_value).then(onResponse).then(onSongJson);
 }
 
 function onSongJson(json)
 {
     const library = document.querySelector('#album-view');
     library.innerHTML='';
-    let n_results = json.tracks.total;
+    const results = json.tracks.items;
+    let n_results = results.length;
     if(n_results > 5)
         n_results = 5;
 
     for(let i=0; i<n_results; i++)
     {
-        const album_data = json.tracks.items[i];
+        const album_data = results[i];
         const title = album_data.name;
-        const img = album_data.images[0].url;
+        const img = album_data.album.images[0].url;
 
         const album = document.createElement('div');
         album.classList.add('album');
         const copertina = document.createElement('img');
         copertina.src = img;
-        const caption = document.createElement('span');
-        caption.textContent = title;
+        const titolo = document.createElement('span');
+        titolo.textContent = title;
 
         album.appendChild(copertina);
-        album.appendChild(caption);
+        album.appendChild(titolo);
 
         library.appendChild(album);
     }
@@ -139,7 +142,7 @@ function onSongJson(json)
 }
 
 const search_album = document.querySelector("#spotify");
-search_album.addEventListener("submit", searchAlbum);
+search_album.addEventListener("submit", searchMusic);
 
 generateNews();
 
