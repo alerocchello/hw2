@@ -19,7 +19,7 @@ class RegistrationController extends Controller {
 
     protected function create() {
         
-        $request = request(); //Legge i dati della richiesta
+        $request = request();
 
         if ($this->countErrors($request) === 0) {
             $newUser =  User::create([
@@ -32,13 +32,12 @@ class RegistrationController extends Controller {
             if ($newUser) {
                 Session::put('username',$newUser->username);
                 Session::put('user_id', $newUser->id);
-                //return view('home')->with('username',session('username'));
                 return redirect('home');
             } else {
-                return redirect('registration')->withInput();
+                return view('registration')->with(['errore'=>"Errore, campi non validi"]);
             }
         } else {
-            return view('registration');//->with('errore',1)->with("csrf_token",csrf_token());
+            return view('registration')->with(['errore'=>"Errore, campi non validi"]);
         }
         
     }
@@ -81,7 +80,7 @@ class RegistrationController extends Controller {
             $error[] = "Le password non coincidono";
         }
 
-        return count($error);
+        return $error;
     }
 
     public function checkUsername($username) {
@@ -98,7 +97,7 @@ class RegistrationController extends Controller {
         if(session('username') !== null)
             return redirect('home');
         else
-            return view('registration');//->with('errore', 0)->with("csrf_token",csrf_token());
+            return view('registration');
     }
 
 }

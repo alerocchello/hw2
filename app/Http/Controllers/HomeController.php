@@ -16,24 +16,24 @@ class HomeController extends BaseController {
     }
 
     public function spotify($song) {
-        $song=urlencode($song);
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, "https://accounts.spotify.com/api/token");
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, 'grant_type=client_credentials'); 
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Basic '.base64_encode(env('SPOTIFY_CLIENT_ID').':'.env('SPOTIFY_CLIENT_SECRET'))));
-        $token =json_decode(curl_exec($curl), true);
-        curl_close($curl);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://accounts.spotify.com/api/token");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials'); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic '.base64_encode(env('SPOTIFY_CLIENT_ID').':'.env('SPOTIFY_CLIENT_SECRET'))));
+        $token =json_decode(curl_exec($ch), true);
+        curl_close($ch);
 
         $urlSpotify="https://api.spotify.com/v1/search?type=track&q=";
+        $song=urlencode($song);
         $url=$urlSpotify .$song;
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token["access_token"])); 
-        $result=curl_exec($curl);
-        curl_close($curl);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token["access_token"])); 
+        $result=curl_exec($ch);
+        curl_close($ch);
         return $result;
     }
 

@@ -17,23 +17,20 @@ class LoginController extends BaseController
             return redirect("home");
         }
         else {
-            return view('login')
-            ->with('csrf_token', csrf_token());
+            return view('login');
         }
     }
 
     public function checkLogin() {
-        $user = User::where('username', request('username'))
-                ->where('password', request('password'))
-                ->first();
+        $user = User::where('username', request('username'))->first();
 
-        if($user->exists()) {
+        if($user != null && password_verify(request('password'), $user->password)) {
             Session::put('user_id', $user->id);
             Session::put('username', $user->username);
-            return redirect('home');//->with('errore', 1)->with('csrf_token', csrf_token());
+            return redirect('home');
         }
         else {
-            return redirect('login')->withInput();
+            return view('login')->with(['errore'=>"L'account associato a queste credenziali non esiste"]);
         }
     }
 
