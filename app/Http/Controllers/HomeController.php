@@ -26,14 +26,15 @@ class HomeController extends BaseController {
         curl_close($ch);
 
         $urlSpotify="https://api.spotify.com/v1/search?type=track&q=";
-        $song=urlencode($song);
-        $url=$urlSpotify .$song;
+        $query=urlencode($song);
+        $url=$urlSpotify .$query;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token["access_token"])); 
         $result=curl_exec($ch);
         curl_close($ch);
+
         return $result;
     }
 
