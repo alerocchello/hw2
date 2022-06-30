@@ -33,8 +33,8 @@
 
         <img src="./images/spotify.png" id="logo_spotify">
         <form id="spotify">            
-            <h2>Scrivi il nome e scegli un album musicale<br>
-                Noi lo riprodurremo in sottofondo</h2>
+            <h2>Scrivi il nome e scegli una canzone<br>
+                Noi la riprodurremo in sottofondo</h2>
             <input type="text" id="album" />
             <input type="submit" value="Cerca">
             <div id="album-view"></div>
