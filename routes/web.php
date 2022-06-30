@@ -44,6 +44,7 @@ Route::get('/spotify/song/{song}', [HomeController::class, 'spotify']);
 
 # NBA
 Route::get('/nba', [NbaController::class, 'index']);
+Route::get('/nba_teams', [NbaController::class, 'nbaTeams']);
 
 # NEWS
 Route::get('/news', [NewsController::class, 'index']);
