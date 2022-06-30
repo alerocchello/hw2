@@ -25,7 +25,6 @@
     </div>
     <div class="username control">
         <label><input type='text' name='username' placeholder="Nome utente" value='{{ old("username") }}' ></label>
-        <!-- <span>&nbsp;@error('username') {{ $message }} @enderror</span> -->
         <p></p>
     </div>
     <div class="email control">
@@ -40,6 +39,9 @@
         <label><input type='password' name='conf_password' placeholder="Conferma password" ></label>
         <p></p> 
     </div>
+    @if(isset($errore))
+        <p class="error">{{$errore}}</p>
+    @endif
     <div class="control">
         <input type="submit" value="Invia">    
     </div>
