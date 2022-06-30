@@ -14,7 +14,7 @@ function checkUsername(event) {
     const input = document.querySelector('.username input');
 
     if(!/^[a-zA-Z0-9_]{1,20}$/.test(input.value)) {
-        input.parentNode.querySelector('p').textContent = "Username non valido: usare massimo 20 caratteri";
+        input.parentNode.parentNode.querySelector('p').textContent = "Username non valido: usare massimo 20 caratteri";
         input.parentNode.classList.add('error');
         formStatus.username = false;
         checkForm();
@@ -28,7 +28,7 @@ function jsonCheckUsername(json){
     if (formStatus.username = !json.exists) {
         document.querySelector('.email').classList.remove('error');
     } else {
-        document.querySelector('.email p').textContent = "Email già in uso";
+        document.querySelector('.email p').textContent = "Username già in uso";
         document.querySelector('.email').classList.add('error');
     }
     checkForm();
@@ -74,7 +74,7 @@ function checkPassword(event) {
 }
 
 function checkConfirmPassword(event) {
-    const confermaPasswordInput = document.querySelector('.conferma_password input');
+    const confermaPasswordInput = document.querySelector('.conf_password input');
     if (formStatus.confermaPassord = confermaPasswordInput.value === document.querySelector('.password input').value) {
         document.querySelector('.conf_password').classList.remove('error');
         document.querySelector('.conf_password p').textContent = "";
