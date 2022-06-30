@@ -28,7 +28,8 @@ class CartController extends BaseController {
 
     public function removeFromCart($id) {
         $cart = Cart::where('username_utente', session('username'))
-                    ->where('id_prodotto', $id);
+                    ->where('id_prodotto', $id)
+                    ->first();
         $cart->delete();
     }
 
