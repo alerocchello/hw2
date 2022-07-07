@@ -10,7 +10,7 @@ function generateNews() {
 }
 
 function onNewsJson(json) {
-    const all_news = document.querySelector("#news") 
+    const all_news = document.querySelector("#news-view") 
     all_news.innerHTML = "";
 
     for (let i=0; i<3; i++) {
@@ -20,19 +20,19 @@ function onNewsJson(json) {
         const divimg = document.createElement("div");
         divimg.classList.add("image");
 
+        const id = document.createElement("span");
+        id.textContent = json[i].id;
+        id.classList.add("hidden");
         const image = document.createElement("img");
         image.src = json[i].url_copertina;
         const title = document.createElement("h3");
         title.textContent = json[i].titolo;
-        const content = document.createElement("p");
-        content.textContent = json[i].contenuto;
-        content.classList.add("hidden");
 
         divimg.appendChild(image);
 
         divnews.appendChild(divimg);
         divnews.appendChild(title);
-        divnews.appendChild(content);
+        divnews.appendChild(id);
 
         all_news.appendChild(divnews);
 
@@ -44,28 +44,30 @@ function onNewsJson(json) {
 }
 
 function seeContent(event) {
+    const id = event.currentTarget.childNodes[2].innerText;
+    fetch("getOneNews/id/"+id).then(onResponse).then(onOneNewsJson);
 
-    const all_news = document.querySelector("#news") 
-    all_news.innerHTML = "";
-    const all_events = document.querySelector("#events") 
-    all_events.innerHTML = "";
-    const spotify = document.querySelector("#spotify") 
-    spotify.innerHTML = "";
-    const buttons2 = document.querySelector("#buttons2");
-    buttons2.innerHTML = "";
-    const second = document.querySelector("#second");
-    second.innerHTML = "";
-    const logo_spotify = document.querySelector("#logo_spotify");
-    logo_spotify.classList.add("hidden");
+}
 
-    let div =event.path[2];
-    div.lastChild.classList.remove("hidden");
+function onOneNewsJson(json) {
+    const article = document.querySelector("article") 
+    article.innerHTML = "";
 
-    event.currentTarget.removeEventListener("click", seeContent);
-    event.currentTarget.style.width = '60%';
+    const news = document.createElement("div");
+    news.classList.add("one_news");
 
-    all_news.appendChild(div);
+    const image = document.createElement("img");
+    image.src = json.url_copertina;
+    const title = document.createElement("h3");
+    title.textContent = json.titolo;
+    const content = document.createElement("p");
+    content.textContent = json.contenuto;
 
+    news.appendChild(image);
+    news.appendChild(title);
+    news.appendChild(content);
+
+    article.appendChild(news);
 }
 
 // MATCHES
@@ -75,7 +77,7 @@ function generateMatches() {
 }
 
 function onMatchesJson(json) {
-    const matches = document.querySelector("#events");
+    const matches = document.querySelector("#events-view");
     matches.innerHTML = "";
 
     for (let i=0; i<3; i++) {

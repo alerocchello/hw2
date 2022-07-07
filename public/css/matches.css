@@ -29,6 +29,15 @@ p {
     transition: all 0.3s ease-in-out;
 }
 
+.match img{
+    height: 400px;
+    object-fit: cover;
+}
+
+.match h3{
+    font-size: 30px;
+}
+
 footer {
     background-color: darkblue;
 }
@@ -42,10 +51,17 @@ footer {
     flex-wrap: wrap;
 }
 
+#matches {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .event {
     position: relative;
     overflow: hidden;
-    width: calc(30% - 80px);
+    width: 30%;
     height: 250px;
     transition: all 0.1s ease-in-out;
     border-radius: 4px;
@@ -101,11 +117,29 @@ footer {
     display: none;
 }
 
-#matches {
+.match {
+    width: 50%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.user {
+    color: black;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.box_comment{
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    margin:3px;
+    padding: 1px;
+    text-align: start;
+    width: 80%;
+    position: relative;
+    left: 10%;
 }
 
 

@@ -1,3 +1,4 @@
+//  VISUALIZZA TUTTE LE NEWS
 function generateNews() {
     fetch(NEWS_ROUTE).then(onResponse).then(onJson);
 }
@@ -18,19 +19,19 @@ function onJson(json) {
         const divimg = document.createElement("div");
         divimg.classList.add("image");
 
+        const id = document.createElement("span");
+        id.textContent = news.id;
+        id.classList.add("hidden");
         const image = document.createElement("img");
         image.src = news.url_copertina;
         const title = document.createElement("h3");
         title.textContent = news.titolo;
-        const content = document.createElement("p");
-        content.textContent = news.contenuto;
-        content.classList.add("hidden");
 
         divimg.appendChild(image);
 
         divnews.appendChild(divimg);
         divnews.appendChild(title);
-        divnews.appendChild(content);
+        divnews.appendChild(id);
 
         all_news.appendChild(divnews);
 
@@ -41,17 +42,34 @@ function onJson(json) {
     
 }
 
+//  VISUALIZZA LA SINGOLA NEWS
+
 function seeContent(event) {
+    const id = event.currentTarget.childNodes[2].innerText;
+    fetch("getOneNews/id/"+id).then(onResponse).then(onOneNewsJson);
+}
+
+function onOneNewsJson(json) {
     const all_news = document.querySelector("#news") 
     all_news.innerHTML = "";
+    document.querySelector(".title").innerHTML="";
 
-    let div =event.path[2];
-    div.lastChild.classList.remove("hidden");
+    const news = document.createElement("div");
+    news.classList.add("one_news");
 
-    event.currentTarget.removeEventListener("click", seeContent);
-    event.currentTarget.style.width = '60%';
+    const image = document.createElement("img");
+    image.src = json.url_copertina;
+    const title = document.createElement("h3");
+    title.textContent = json.titolo;
+    const content = document.createElement("p");
+    content.textContent = json.contenuto;
 
-    all_news.appendChild(div);
+    news.appendChild(image);
+    news.appendChild(title);
+    news.appendChild(content);
+
+    all_news.appendChild(news);
 }
+
 
 generateNews();

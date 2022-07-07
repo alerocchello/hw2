@@ -3,6 +3,7 @@ function generateCart(){
 }
 
 function onResponse(response) {
+    if (!response.ok) return null;
     return response.json();
 }
 

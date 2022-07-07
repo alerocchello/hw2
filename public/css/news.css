@@ -65,7 +65,7 @@ p {
 }
 
 .news {
-    width: calc(30% - 80px);
+    width: 30%;
     height: 350px;
     transition: all 0.1s ease-in-out;
     border-radius: 4px;
@@ -90,6 +90,21 @@ p {
     display: none;
 }
 
+.one_news {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.one_news img{
+    height: 400px;
+    object-fit: cover;
+}
+
+.one_news h3{
+    font-size: 30px;
+}
+
 .event:hover,
 .news:hover,
 section h3:hover,
@@ -112,4 +127,3 @@ a.button:hover,
 .news:hover img{
     transform: scale(1.1);
 }
-

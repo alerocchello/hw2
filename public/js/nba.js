@@ -1,4 +1,24 @@
+// TEAMS
 
+function generateTeams(){
+    fetch("nba_teams").then(onResponse).then(onNBAJson);
+}
+
+function onNBAJson(json) {
+    const teams = document.querySelector("#teams")
+    teams.innerHTML = "";
+    console.log(json);
+
+    for (const team of json) {
+        const name = document.createElement("p");
+        name.textContent = team;
+
+        teams.appendChild(name);
+    }
+}
+
+
+// PLAYERS
 
 function searchPlayer(event){
     event.preventDefault();
@@ -59,27 +79,5 @@ function onJson(json) {
 const search_player = document.querySelector("#search_player");
 search_player.addEventListener("submit", searchPlayer);
 
-
-
-
-
-
-
 generateTeams();
 
-function generateTeams(){
-    fetch("nba_teams").then(onResponse).then(onNBAJson);
-}
-
-function onNBAJson(json) {
-    const teams = document.querySelector("#teams")
-    teams.innerHTML = "";
-    console.log(json);
-
-    for (const team of json) {
-        const name = document.createElement("p");
-        name.textContent = team;
-
-        teams.appendChild(name);
-    }
-}

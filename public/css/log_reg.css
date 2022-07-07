@@ -36,11 +36,20 @@ h2 {
     text-decoration: none;
 }
 
+.form_container form p,
+.error {
+    color: red;
+}
+
 
 /* Classi e id */
 
 #logo {
     text-transform: uppercase;
+    background-color:  rgba(0, 0, 139, 0.85);
+    padding: 10px;
+    display: inline;
+    border-radius: 10px;
 }
 
 .form_container {
@@ -70,6 +79,10 @@ main {
     align-items: center;
 }
 
+footer {
+    background-color: rgba(0, 0, 139, 0.85);
+}
+
 
 /* Cursore */
 
@@ -80,10 +93,4 @@ main {
 
 main p a:hover {
     text-decoration: underline;
-}
-
-
-/* dettagli footer */
-footer {
-    background-color: rgba(0, 0, 139, 0.85);
 }

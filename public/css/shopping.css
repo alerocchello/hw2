@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding: 0;
     background-color: blue;
     font-family: 'Anybody', Helvetica;
     font-style: normal;
@@ -7,6 +8,9 @@ body {
     font-size: 15px;
     letter-spacing: 1px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 @media (max-width: 500px){
@@ -42,16 +46,8 @@ input[type=submit] {
 
 footer {
     background-color: darkblue;
+    margin-top: auto;
 }
-
-/* Non va bene perché andrebbe a coprire le scritte del prodotto
-footer {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-}
-*/
 
 
 /* Classi e id */

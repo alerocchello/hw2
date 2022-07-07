@@ -11,6 +11,7 @@ function generateProducts(event) {
 
 
 function onJson(json) {
+    console.log(json);
     const store = document.querySelector("#divstore") 
     store.innerHTML = "";
 
