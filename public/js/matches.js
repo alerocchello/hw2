@@ -88,14 +88,18 @@ function onCommentsJson(json){
     for (comment of json) {
         div=document.createElement('div');
         div.classList.add('box_comment');
-        nome=document.createElement('span');
-        nome.textContent=comment.username_utente + ": ";
-        nome.classList.add('user');
-        commento=document.createElement('span');
-        commento.textContent=comment.commento;
+        username=document.createElement('span');
+        username.textContent=comment.username_utente + " ";
+        username.classList.add('user');
+        date = document.createElement('span');
+        date.textContent = comment.data;
+        date.classList.add('date');
+        text=document.createElement('p');
+        text.textContent=comment.commento;
 
-        div.appendChild(nome);
-        div.appendChild(commento);
+        div.appendChild(username);
+        div.appendChild(date);
+        div.appendChild(text);
         commenti.appendChild(div);
     }
 }
