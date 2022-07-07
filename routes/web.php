@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PremierController;
 use App\Http\Controllers\NbaController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\MatchesController;
@@ -22,7 +23,7 @@ use App\Http\Controllers\CartController;
 */
 
 Route::get('/', function () {
-    return view('registration');
+    return view('login');
 });
 
 # REGISTRAZIONE
@@ -42,6 +43,10 @@ Route::get("/logout", [LoginController::class, 'logout']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/spotify/song/{song}', [HomeController::class, 'spotify']);
 
+# PREMIER LEAGUE
+Route::get('/premier', [PremierController::class, 'index']);
+Route::get('/classific_premier', [PremierController::class, 'classification']);
+
 # NBA
 Route::get('/nba', [NbaController::class, 'index']);
 Route::get('/nba_teams', [NbaController::class, 'nbaTeams']);
@@ -49,10 +54,14 @@ Route::get('/nba_teams', [NbaController::class, 'nbaTeams']);
 # NEWS
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/warehouse_news', [NewsController::class, 'warehouse']);
+Route::get('/getOneNews/id/{id}', [NewsController::class, 'getOne']);
 
 # MATCHES
 Route::get('/matches', [MatchesController::class, 'index']);
 Route::get('/warehouse_matches', [MatchesController::class, 'warehouse']);
+Route::get('/getMatch/id/{id}', [MatchesController::class, 'getOne']);
+Route::get('/load_comments/id/{id}', [MatchesController::class, 'loadComments']);
+Route::get('/add_comment/id_match/{id_match}/comment/{comment}', [MatchesController::class, 'addComment']);
 
 # STORE
 Route::get('/store', [StoreController::class, 'index']);
