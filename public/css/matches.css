@@ -135,11 +135,15 @@ footer {
     background-color: white;
     color: black;
     margin:3px;
-    padding: 1px;
+    padding: 10px;
     text-align: start;
     width: 80%;
     position: relative;
     left: 10%;
+}
+
+.date {
+    color: gray;
 }
 
 
