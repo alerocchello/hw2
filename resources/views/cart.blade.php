@@ -17,5 +17,6 @@
     <a href="{{ url('store') }}"><button><img src="./images/negozio.png" id="iconcart"> Compra ancora</button></a> 
 </nav>
 
-<section id="products-view"></section>
+<section id="products-view">
+</section>
 @endsection

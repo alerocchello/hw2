@@ -19,25 +19,27 @@
     @csrf
     <div class="name control">
         <label><input type='text' name='name' placeholder="Nome" value='{{ old("name") }}' ></label>
+        <span></span>
     </div>
     <div class="surname control">
         <label><input type='text' name='surname' placeholder="Cognome" value='{{ old("surname") }}' ></label>
+        <span></span>
     </div>
     <div class="username control">
         <label><input type='text' name='username' placeholder="Nome utente" value='{{ old("username") }}' ></label>
-        <p></p>
+        <span></span>
     </div>
     <div class="email control">
         <label><input type='text' name='email' placeholder="E-mail" value='{{ old("email") }}' ></label>
-        <p></p>
+        <span></span>
     </div>
     <div class="password control">
         <label><input type='password' name='password' placeholder="Password" ></label>
-        <p></p>   
+        <span></span>  
     </div>
     <div class="conf_password control">
         <label><input type='password' name='conf_password' placeholder="Conferma password" ></label>
-        <p></p> 
+        <span></span>
     </div>
     @if(isset($errore))
         <p class="error">{{$errore}}</p>

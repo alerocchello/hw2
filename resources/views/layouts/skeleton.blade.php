@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- css di header, side_menu e footer -->
+    <!-- css -->
     <link rel='stylesheet' href="{{ asset('css/header.css') }}">
     <link rel='stylesheet' href="{{ asset('css/side_menu.css') }}">
     <link rel='stylesheet' href="{{ asset('css/footer.css') }}">
     @yield('style')
 
-    <!-- js side_menu -->
+    <!-- js -->
     <script src="{{ asset('js/side_menu.js') }}" defer></script>
     @yield('script')
 
@@ -34,7 +34,7 @@
                 <!-- Cliccando sulle varie voci del menu, l utente verrà indirizzato ad un area del sito dedicata a quella determinata competizione -->
                 <!-- L unica voce avente un link è nba perché avrei sforato di troppo il limite di 3-5 pagine php e perché è l unica di cui ho trovato api minimamente interessanti -->
                 <h2>Competizioni:</h2>
-                <a href="#">Champions League</a>
+                <a href="{{ url('premier') }}">Premier League</a>
                 <a href="{{ url('nba') }}">Nba</a>
                 <a href="#">Olimpiadi</a>
                 <a href="#">Formula 1</a>
