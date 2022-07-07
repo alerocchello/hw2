@@ -20,17 +20,33 @@ class CartController extends BaseController {
     }
 
     public function addToCart($id) {
-        $cart = new Cart;
-        $cart->username_utente = session('username');
-        $cart->id_prodotto = $id;
-        $cart->save();
+        $cart = Cart::where('username_utente', session('username'))
+                      ->where('id_prodotto', $id)
+                      ->first();
+
+        if($cart != null) {
+            $cart->num = $cart->num +1;
+            $cart->save();
+        } else {
+            $cart = new Cart;
+            $cart->username_utente = session('username');
+            $cart->id_prodotto = $id;
+            $cart->num = 1;
+            $cart->save();
+        }
     }
 
     public function removeFromCart($id) {
         $cart = Cart::where('username_utente', session('username'))
                     ->where('id_prodotto', $id)
                     ->first();
-        $cart->delete();
+
+        if($cart->num > 1) {
+            $cart->num = $cart->num -1;
+            $cart->save();
+        } else {
+            $cart->delete();
+        }
     }
 
     public function returnCart() {

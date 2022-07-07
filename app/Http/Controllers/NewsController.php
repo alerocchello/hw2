@@ -19,5 +19,9 @@ class NewsController extends BaseController {
     public function warehouse() {
         return News::all();
     }
+
+    public function getOne($id) {
+        return News::find($id);
+    }
 }
 ?>

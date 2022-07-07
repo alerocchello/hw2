@@ -8,7 +8,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Stmt\Echo_;
 
 class Controller extends BaseController
 {
@@ -21,63 +20,57 @@ class RegistrationController extends Controller {
         
         $request = request();
 
-        if ($this->countErrors($request) === 0) {
+        if($this->checkErrors($request) !== true) {
             $newUser =  User::create([
-                'name' => $request['name'],
-                'surname' => $request['surname'],
-                'username' => $request['username'],
-                'email' => $request['email'],
-                'password' => $request['password'],
-                ]);
+            'username' => $request['username'],
+            'password' => password_hash($request['password'],PASSWORD_BCRYPT),
+            'name' => $request['name'],
+            'surname' => $request['surname'],
+            'email' => $request['email'],
+            ]);
             if ($newUser) {
-                Session::put('username',$newUser->username);
                 Session::put('user_id', $newUser->id);
+                Session::put('username',$newUser->username);
                 return redirect('home');
             } else {
-                return view('registration')->with(['errore'=>"Errore, campi non validi"]);
+                return view('registration')->with(['errore'=>"Errore nella creazione del tuo account"]);
             }
-        } else {
-            return view('registration')->with(['errore'=>"Errore, campi non validi"]);
-        }
-        
+        } else 
+        return view('registration')->with(['errore'=>"Errore nelle credenziali che hai inserito"]);
     }
 
-    public function countErrors($data) {
-        //Creo un array contente tutti gli errori
-        $error = array();
+    public function checkErrors($data) {
+        $error=false;
         
-        # CONTROLLO USERNAME
+        # USERNAME
         // Controlla che l'username rispetti il pattern specificato
         if(!preg_match('/^[a-zA-Z0-9_]{1,20}$/', $data['username'])) {
-            $error[] = "Username non valido";
+            $error=true;
         } else {
-            // Controllo se lo username esiste già
             $username = User::where('username', $data['username'])->first();
             if ($username !== null) {
-                $error[] = "Username già utilizzato";
+                $error=true;
             }
         }
 
-        # CONTROLLO EMAIL
-        //Metto un filtro per controllare la validità dell'email
-        //In particolare, Il filtro FILTER_VALIDATE_EMAIL convalida un indirizzo e-mail
+        # EMAIL
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $error[] = "Email non valida";
+            $error=true;
         } else {
             $email = User::where('email', $data['email'])->first();
             if ($email !== null) {
-                $error[] = "Esiste già un account associato a quest'E-mail";
+                $error=true;
             }
         }
 
-        # CONTROLLO PASSWORD
+        # PASSWORD
         if (strlen($data["password"]) < 8) {
-            $error[] = "Caratteri password insufficienti";
+            $error=true;
         }
-
-        # CONTROLLO CONFERMA PASSWORD
+        
+        # CONFERMA PASSWORD
         if (strcmp($data["password"], $data["conf_password"]) != 0) {
-            $error[] = "Le password non coincidono";
+            $error=true;
         }
 
         return $error;
@@ -85,12 +78,22 @@ class RegistrationController extends Controller {
 
     public function checkUsername($username) {
         $exist = User::where('username', $username)->exists();
-        return array(['exists' => $exist]);
+        if($exist!=null){
+            return json_encode(true);
+        }
+        else{
+            return json_encode(false);
+        }
     }
 
     public function checkEmail($email) {
         $exist = User::where('email', $email)->exists();
-        return array(['exists' => $exist]);
+        if($exist!=null){
+            return json_encode(true);
+        }
+        else{
+            return json_encode(false);
+        }
     }
 
     public function index() {
