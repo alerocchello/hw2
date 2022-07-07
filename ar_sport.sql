@@ -7,7 +7,7 @@ CREATE TABLE users
     id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),
     surname VARCHAR(255),
-    username VARCHAR(255),
+    username VARCHAR(255) UNIQUE,
     email VARCHAR(255),
     password VARCHAR(255)
 );
@@ -45,6 +45,21 @@ INSERT INTO `events` (`titolo`, `dettagli`, `url_copertina`) VALUES ('Mondiali',
 INSERT INTO `events` (`titolo`, `dettagli`, `url_copertina`) VALUES ('Lakers - Denver Nuggets', 'NBA | 16/04/2022 - 04:00', 'https://www.insidesport.in/wp-content/uploads/2021/05/lakers-vs-denver-nuggets.jpg');
 
 
+CREATE TABLE comments
+(
+    id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    username_utente VARCHAR(255),
+    id_match INTEGER,
+    commento VARCHAR(255),
+    data DATE,
+    index idx_username_utente(username_utente),
+    index idx_id_match(id_match),
+    FOREIGN KEY(username_utente) REFERENCES users(username),
+    FOREIGN KEY(id_match) REFERENCES events(id)
+);
+INSERT INTO `comments` (`id`, `username_utente`, `id_match`, `commento`, `data`) VALUES (NULL, 'alessandro_rocchello', '1', 'Speriamo sia una bella partita', '2022-06-29');
+
+
 CREATE TABLE tshirts
 (
     id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -63,5 +78,10 @@ CREATE TABLE carts
 (
     id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username_utente VARCHAR(255),
-    id_prodotto INTEGER
+    id_prodotto INTEGER,
+    num INTEGER,
+    index idx_username_utente(username_utente),
+    index idx_id_prodotto(id_prodotto),
+    FOREIGN KEY(username_utente) REFERENCES users(username),
+    FOREIGN KEY(id_prodotto) REFERENCES tshirts(id)
 );
